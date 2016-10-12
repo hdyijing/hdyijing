@@ -1,0 +1,62 @@
+spring-boot-all
+===============
+
+用来整理spring-boot关联的知识
+
+可以参考http://docs.spring.io/spring-boot/docs/1.1.0.RC1/reference/htmlsingle/官方参考文档
+
+===== 说明
+
+项目依赖于官方spring-boot, 在pom.xml文件里面配置,该文档是spring-boot-samples的描述,其他详见spring-boot-parent
+[source,java,indent=0]
+----
+<parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>1.3.5</version>
+</parent>
+----
+
+==== spring boot location static js/css, 默认路径如下, 详见项目jsp文件
+* /META-INF/resources/ 
+* /resources/ 
+* /static/ 
+* /public/ 
+
+
+spring boot 增加InterceptorRegistry拦截器, 拦截路径user/下所有路径
+[source,java,indent=0]
+----
+public void addInterceptors(InterceptorRegistry registry) {
+    registry.addInterceptor(new UserSecurityInterceptor()).addPathPatterns("/user/**");
+}
+----
+
+增加加密EncryptUtils操作, 处理MD5加密, 盐值加密, SHA加密, PBKDF2加密
+
+==== 添加CurrentUserUtils对当前session的管理, 方便在servie里面引用
+[source,java,indent=0]
+----
+/**
+ * 获取当前Request
+ * @return
+ */
+private HttpServletRequest getRequest() {  
+   ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();  
+   return requestAttributes.getRequest();  
+} 
+----
+==== Holder一个可以生成简单图像的前端JavaScript库
+[source,javascript,indent=0]
+----
+<img src="holder.js/200x300/sky">
+
+demo: http://localhost:8080/user/home/holder
+----
+==== jQuery.tmpl模板方法的应用
+[source,javascript,indent=0]
+----
+基本语法: jQuery.tmpl( template [, data] [, options] )
+
+demo: http://localhost:8080/user/home/tmpl
+----
